@@ -13,16 +13,27 @@ import lou.kings.com.oneapp.utils.CheakProcessRunningUtils;
 public class ServiceTwo extends Service{
 
     private final String serviceName = "lou.kings.com.oneapp.service.ServiceOne";
+    private final String keyServiceName = "lou.kings.com.oneapp.service.KeyService";
 
     IMyAidlInterface iMyAidlInterface = new IMyAidlInterface.Stub() {
         @Override
         public void startService() throws RemoteException {
-
+            if(!CheakProcessRunningUtils.isProcessRunning(ServiceTwo.this,serviceName)){
+                Intent intent = new Intent(ServiceTwo.this,ServiceOne.class);
+                ServiceTwo.this.startService(intent);
+            }
+            if(!CheakProcessRunningUtils.isProcessRunning(ServiceTwo.this,keyServiceName)){
+                Intent intent2 = new Intent(ServiceTwo.this,KeyService.class);
+                ServiceTwo.this.startService(intent2);
+            }
         }
 
         @Override
         public void stopService() throws RemoteException {
-
+            Intent intent1 = new Intent(ServiceTwo.this,ServiceOne.class);
+            Intent intent2 = new Intent(ServiceTwo.this,KeyService.class);
+            ServiceTwo.this.stopService(intent1);
+            ServiceTwo.this.stopService(intent2);
         }
     };
 
@@ -40,6 +51,13 @@ public class ServiceTwo extends Service{
             public void run() {
                 while (true){
                     if(!CheakProcessRunningUtils.isProcessRunning(ServiceTwo.this,serviceName)){
+                        try {
+                            iMyAidlInterface.startService();
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if(!CheakProcessRunningUtils.isProcessRunning(ServiceTwo.this,keyServiceName)){
                         try {
                             iMyAidlInterface.startService();
                         } catch (RemoteException e) {

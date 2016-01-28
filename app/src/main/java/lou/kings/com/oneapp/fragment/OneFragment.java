@@ -17,7 +17,7 @@ public class OneFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if(rootview==null){
-            rootview = inflater.inflate(R.layout.activity_main, container, false);
+            rootview = inflater.inflate(R.layout.onfragment, container, false);
             lazyLoad();
         }
         ViewGroup parent = (ViewGroup)rootview.getParent();

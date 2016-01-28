@@ -19,7 +19,8 @@ public class ServiceOne extends Service {
     IMyAidlInterface iMyAidlInterface = new IMyAidlInterface.Stub(){
         @Override
         public void startService() throws RemoteException {
-
+            Intent intent = new Intent(ServiceOne.this,ServiceTwo.class);
+            ServiceOne.this.startService(intent);
         }
 
         @Override
