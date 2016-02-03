@@ -1,7 +1,10 @@
 package lou.kings.com.oneapp;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,6 +16,8 @@ import android.widget.LinearLayout;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import lou.kings.com.oneapp.animation.GuillotineAnimation;
+import lou.kings.com.oneapp.service.KeyService;
+import lou.kings.com.oneapp.service.MyBinder;
 
 public class MainActivity extends BaseActivity {
 
@@ -23,8 +28,13 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.content_hamburger)
     View contentHamburger;
     LinearLayout linsetting;
+    private ServiceConnection serviceConnection;
 
     private static final long RIPPLE_DURATION = 250;
+
+    private KeyService keyService;
+
+    private MyBinder myBinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +64,33 @@ public class MainActivity extends BaseActivity {
 
     private void startIntro(){
         Intent intent = new Intent();
-        intent.setClass(MainActivity.this,MyIntro.class);
+        intent.setClass(MainActivity.this, MyIntro.class);
         startService();
+    }
+
+    private void initBinder(){
+        serviceConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                myBinder =  (MyBinder)service;
+                myBinder.setKeyListener();
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+        };
     }
 
     private void startService(){
         Intent intent1 = new Intent(MainActivity.this, lou.kings.com.oneapp.service.ServiceOne.class);
         startService(intent1);
 
+//        Intent intentkey = new Intent(MainActivity.this,KeyService.class);
+//        startService(intentkey);
+//        initBinder();
+//        bindService(intentkey,serviceConnection,BIND_AUTO_CREATE);
 //        Intent intent2 = new Intent(MainActivity.this, lou.kings.com.oneapp.service.ServiceTwo.class);
 //        startActivity(intent2);
     }

@@ -20,11 +20,24 @@
 
         <activity android:name=".MyIntro"></activity>
 
-        <service android:name="service.KeyService"></service>
+        <activity android:name=".SchemeCenter"
+                  android:theme="@android:style/Theme.NoDisplay"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="appscheme"></data>
+            </intent-filter>
+        </activity>
+
+        <service android:name="service.KeyService"
+                 android:process=":KeyService"
+            ></service>
 
         <service android:name=".service.ServiceOne"
                  android:process=":ServiceOne"
-            ></service>
+            />
         <service android:name=".service.ServiceTwo"
                  android:process=":ServiceTwo"
             ></service>
