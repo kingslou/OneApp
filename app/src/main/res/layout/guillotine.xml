@@ -66,6 +66,7 @@
 
         <ImageView
             style="@style/ImageView.GuillotineItem"
+            android:focusable="false"
             android:src="@drawable/ic_settings" />
 
         <lou.kings.com.oneapp.utils.CanaroTextView
