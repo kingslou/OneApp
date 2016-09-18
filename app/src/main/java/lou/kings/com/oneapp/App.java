@@ -11,17 +11,22 @@ import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 public class App extends Application {
     private static final String CANARO_EXTRA_BOLD_PATH = "fonts/canaro_extra_bold.otf";
     public static Typeface canaroExtraBold;
+    private static App app;
 
     @Override
     public void onCreate() {
         super.onCreate();
         CustomActivityOnCrash.install(this);
         initTypeface();
+        app = this;
+    }
+
+    public static App getAppInstance(){
+        return app;
     }
 
     private void initTypeface() {
         canaroExtraBold = Typeface.createFromAsset(getAssets(), CANARO_EXTRA_BOLD_PATH);
-
     }
 
 }

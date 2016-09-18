@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 22
+    buildToolsVersion "21.0.1"
 
     defaultConfig {
         applicationId "lou.kings.com.oneapp"
@@ -11,12 +11,53 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    sourceSets {
+        main {
+//            jniLibs.srcDirs = ['libs']
+            java.srcDirs = ['src/main/java']
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            res.srcDirs = ['src/main/res']
+            assets.srcDirs = ['src/main/assets']
+        }
+
+        demo {
+            java.srcDirs = ['demo']
+            res.srcDirs = ['demo/res']
+            manifest.srcFile 'demo/AndroidManifest.xml'
+        }
+        pro {
+            java.srcDirs = ['pro']
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            zipAlignEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        staging {
+            minifyEnabled false
+            zipAlignEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        demo {
+//            applicationId = rootProject.ext.packageName+"demo";
+            applicationId = "lou.kings.com.oneapp.demo"
+        }
+
+        pro {
+//            applicationId = rootProject.ext.packageName+"pro";
+            applicationId = "lou.kings.com.oneapp.pro"
+        }
+    }
+    sourceSets { main { java.srcDirs = ['src/main/java', 'src/main/java/2'] } }
 }
 
 dependencies {
@@ -29,5 +70,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'cat.ereza:customactivityoncrash:1.4.0'
     compile 'de.greenrobot:eventbus:3.0.0-beta1'
-    compile project(':api')
 }
+

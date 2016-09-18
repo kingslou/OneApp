@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="lou.kings.com.oneapp" xmlns:tools="http://schemas.android.com/tools" >
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_activity_active.png"
+        tools:replace="android:icon"
+        android:label="@string/app_name"
+        android:theme="@style/MyMaterialTheme" >
+    </application>
+
+</manifest>

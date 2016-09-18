@@ -1,0 +1,5 @@
+ext{
+    currentVersionName = "1.0"
+    releaseDate = "2016-09-18"
+    packageName = 'lou.kings.com.oneapp'
+}
