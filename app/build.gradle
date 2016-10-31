@@ -1,9 +1,24 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "21.0.1"
 
+    signingConfigs {
+        config {
+            keyAlias 'config'
+            keyPassword 'admin123456'
+            storeFile file('F:/test.jks')
+            storePassword 'admin123456'
+        }
+    }
+    compileSdkVersion 23
+    buildToolsVersion "21.0.1"
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(
+                    output.outputFile.parent + "/${variant.buildType.name}",
+                    "OneApp-${variant.buildType.name}-${variant.productFlavors[0].name}-${variant.versionName}.apk".toLowerCase())
+        }
+    }
     defaultConfig {
         applicationId "lou.kings.com.oneapp"
         minSdkVersion 16
@@ -11,7 +26,6 @@ android {
         versionCode 1
         versionName "1.0"
     }
-
     sourceSets {
         main {
 //            jniLibs.srcDirs = ['libs']
@@ -30,13 +44,13 @@ android {
             java.srcDirs = ['pro']
         }
     }
-
     buildTypes {
         release {
             minifyEnabled false
             zipAlignEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
         }
         staging {
             minifyEnabled false
@@ -45,7 +59,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     productFlavors {
         demo {
 //            applicationId = rootProject.ext.packageName+"demo";
@@ -55,14 +68,13 @@ android {
         pro {
 //            applicationId = rootProject.ext.packageName+"pro";
             applicationId = "lou.kings.com.oneapp.pro"
+
         }
     }
-    sourceSets { main { java.srcDirs = ['src/main/java', 'src/main/java/2'] } }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.github.paolorotolo:appintro:3.4.0'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.easing:library:1.0.1@aar'
@@ -70,5 +82,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'cat.ereza:customactivityoncrash:1.4.0'
     compile 'de.greenrobot:eventbus:3.0.0-beta1'
+    compile 'com.android.support:appcompat-v7:23.0.0'
 }
 

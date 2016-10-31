@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="lou.kings.com.oneapp" >
 
+    <uses-permission
+        android:name="android.permission.RECEIVE_BOOT_COMPLETED">
+    </uses-permission>
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -15,6 +19,10 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.MONKEY" />
             </intent-filter>
         </activity>
 
@@ -41,6 +49,31 @@
         <service android:name=".service.ServiceTwo"
                  android:process=":ServiceTwo"
             ></service>
+
+        <service android:name=".service.UploadPOIService" >
+            <intent-filter>
+                <action android:name="lou.kings.com.oneapp.service.UploadPOIService" />
+            </intent-filter>
+        </service>
+        <receiver
+        android:name=".recevier.BootBroadcastReceiver"
+        android:exported="false" >
+        <intent-filter android:priority="1000">
+            <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            <action android:name="android.intent.action.USER_PRESENT"/>
+        </intent-filter>
+    </receiver>
+
+        <receiver android:enabled="true" android:exported="true"
+            android:name="lou.kings.com.oneapp.recevier.AutoStartUp"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED"
+            android:installLocation="internalOnly">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
