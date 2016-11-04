@@ -37,5 +37,12 @@
                 android:textSize="@dimen/guillotine_item_text_size" />
         </android.support.v7.widget.Toolbar>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/grildrecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
     </LinearLayout>
 </FrameLayout>
