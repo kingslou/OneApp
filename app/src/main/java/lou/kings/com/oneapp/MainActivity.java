@@ -88,7 +88,7 @@ public class MainActivity extends BaseActivity {
 
     public void initView() {
 //        LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,6);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
         grildRecyclerView.setLayoutManager(gridLayoutManager);
         grildRecyclerView.setHasFixedSize(true);
 
@@ -96,14 +96,15 @@ public class MainActivity extends BaseActivity {
             @Override
             protected void onBindView(BaseViewHolder holder, int position) {
                 ResolveInfo resolveInfo = resolveInfoList.get(position);
-                if(position%2==0){
+//                if(position%2==0){
                     TextView textView = holder.getView(R.id.textname);
                     ImageView imageView = holder.getView(R.id.imageicon);
                     imageView.setImageDrawable(resolveInfo.loadIcon(getPackageManager()));
-                }else{
-                    ImageView imageView1 = holder.getView(R.id.item_content_iv);
-                    imageView1.setImageDrawable(resolveInfo.loadIcon(getPackageManager()));
-                }
+                    textView.setText(resolveInfo.loadLabel(getPackageManager()));
+//                }else{
+//                    ImageView imageView1 = holder.getView(R.id.item_content_iv);
+//                    imageView1.setImageDrawable(resolveInfo.loadIcon(getPackageManager()));
+//                }
             }
 
             @Override
@@ -116,14 +117,14 @@ public class MainActivity extends BaseActivity {
                 return resolveInfoList.size();
             }
 
-            @Override
-            public int getItemViewType(int position) {
-                if(position%2==0){
-                    return R.layout.grild_item;
-                }else{
-                    return R.layout.image_item;
-                }
-            }
+//            @Override
+//            public int getItemViewType(int position) {
+//                if(position%2==0){
+//                    return R.layout.grild_item;
+//                }else{
+//                    return R.layout.image_item;
+//                }
+//            }
         };
         grildRecyclerView.setAdapter(grildAdapter);
     }
